@@ -36,10 +36,10 @@ class NotchWindowManager: ObservableObject {
     func show() {
         if isVisible { return }
         
-        // Ensure window is created (should already be from init)
+        // Ensure window exists (should already be pre-created)
         initializeWindowIfNeeded()
         
-        // Update window position for current screen
+        // Update position for current screen
         let metrics = NotchRecorderPanel.calculateWindowMetrics()
         notchPanel?.setFrame(metrics.frame, display: false)
         

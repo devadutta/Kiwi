@@ -191,11 +191,6 @@ class WhisperState: NSObject, ObservableObject {
                             await MainActor.run {
                                 self.recordingState = .recording
                             }
-                            
-                            // Apply window configuration in background (non-blocking)
-                            Task {
-                                await ActiveWindowService.shared.applyConfigurationForCurrentApp()
-                            }
          
                             // Only load model if it's a local model and not already loaded
                             if let model = self.currentTranscriptionModel, model.provider == .local {
@@ -209,11 +204,6 @@ class WhisperState: NSObject, ObservableObject {
                                 }
                                     } else if let model = self.currentTranscriptionModel, model.provider == .parakeet {
             try? await parakeetTranscriptionService.loadModel()
-                            }
-        
-                            if let enhancementService = self.enhancementService,
-                               enhancementService.useScreenCaptureContext {
-                                await enhancementService.captureScreenContext()
                             }
         
                         } catch {
