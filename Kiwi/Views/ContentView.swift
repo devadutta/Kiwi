@@ -4,7 +4,6 @@ import KeyboardShortcuts
 
 // ViewType enum with all cases
 enum ViewType: String, CaseIterable {
-    case metrics = "Dashboard"
     case transcribeAudio = "Transcribe Audio"
     case history = "History"
     case models = "AI Models"
@@ -17,7 +16,6 @@ enum ViewType: String, CaseIterable {
     
     var icon: String {
         switch self {
-        case .metrics: return "gauge.medium"
         case .transcribeAudio: return "waveform.circle.fill"
         case .history: return "doc.text.fill"
         case .models: return "brain.head.profile"
@@ -146,7 +144,7 @@ struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var whisperState: WhisperState
     @EnvironmentObject private var hotkeyManager: HotkeyManager
-    @State private var selectedView: ViewType = .metrics
+    @State private var selectedView: ViewType = .history
     @State private var hoveredView: ViewType?
     @State private var hasLoadedData = false
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"
@@ -215,13 +213,6 @@ struct ContentView: View {
     @ViewBuilder
     private var detailView: some View {
         switch selectedView {
-        case .metrics:
-            if isSetupComplete {
-                MetricsView(skipSetupCheck: true)
-            } else {
-                MetricsSetupView()
-                    .environmentObject(hotkeyManager)
-            }
         case .models:
             ModelManagementView(whisperState: whisperState)
         case .enhancement:
