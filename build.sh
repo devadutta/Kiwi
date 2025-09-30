@@ -1,0 +1,1 @@
+xcodebuild -project Kiwi.xcodeproj -scheme Kiwi -configuration Release -allowProvisioningUpdates build
