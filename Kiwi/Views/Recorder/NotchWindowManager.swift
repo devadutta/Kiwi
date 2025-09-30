@@ -4,7 +4,8 @@ import AppKit
 class NotchWindowManager: ObservableObject {
     @Published var isVisible = false
     private var windowController: NSWindowController?
-     var notchPanel: NotchRecorderPanel?
+    var notchPanel: NotchRecorderPanel?
+    private var hostingController: NotchRecorderHostingController<AnyView>?
     private let whisperState: WhisperState
     private let recorder: Recorder
     
@@ -18,10 +19,14 @@ class NotchWindowManager: ObservableObject {
             name: NSNotification.Name("HideNotchRecorder"),
             object: nil
         )
+        
+        // Pre-create the window for instant first show
+        initializeWindowIfNeeded()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        cleanupWindow()
     }
     
     @objc private func handleHideNotification() {
@@ -31,29 +36,27 @@ class NotchWindowManager: ObservableObject {
     func show() {
         if isVisible { return }
         
-        // Get the active screen from the key window or fallback to main screen
-        let activeScreen = NSApp.keyWindow?.screen ?? NSScreen.main ?? NSScreen.screens[0]
+        // Ensure window exists (should already be pre-created)
+        initializeWindowIfNeeded()
         
-        initializeWindow(screen: activeScreen)
+        // Update position for current screen
+        let metrics = NotchRecorderPanel.calculateWindowMetrics()
+        notchPanel?.setFrame(metrics.frame, display: false)
+        
         self.isVisible = true
-        notchPanel?.show()
+        notchPanel?.orderFrontRegardless()
     }
     
     func hide() {
         guard isVisible else { return }
         
-        // Remove animation for instant state change
         self.isVisible = false
-        
-        // Don't wait for animation, clean up immediately
-        self.notchPanel?.hide { [weak self] in
-            guard let self = self else { return }
-            self.deinitializeWindow()
-        }
+        notchPanel?.orderOut(nil)
     }
     
-    private func initializeWindow(screen: NSScreen) {
-        deinitializeWindow()
+    private func initializeWindowIfNeeded() {
+        // Only create if it doesn't exist
+        guard notchPanel == nil else { return }
         
         let metrics = NotchRecorderPanel.calculateWindowMetrics()
         let panel = NotchRecorderPanel(contentRect: metrics.frame)
@@ -62,19 +65,19 @@ class NotchWindowManager: ObservableObject {
             .environmentObject(self)
             .environmentObject(whisperState.enhancementService!)
         
-        let hostingController = NotchRecorderHostingController(rootView: notchRecorderView)
+        let hostingController = NotchRecorderHostingController(rootView: AnyView(notchRecorderView))
         panel.contentView = hostingController.view
         
         self.notchPanel = panel
+        self.hostingController = hostingController
         self.windowController = NSWindowController(window: panel)
-        
-        panel.orderFrontRegardless()
     }
     
-    private func deinitializeWindow() {
-        windowController?.close()
+    private func cleanupWindow() {
+        notchPanel?.close()
         windowController = nil
         notchPanel = nil
+        hostingController = nil
     }
     
     func toggle() {

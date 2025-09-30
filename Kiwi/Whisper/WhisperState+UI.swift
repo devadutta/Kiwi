@@ -36,13 +36,13 @@ extension WhisperState {
                 await cancelRecording()
             }
         } else {
-            SoundManager.shared.playStartSound()
-
-            await toggleRecord()
-
+            // Show window FIRST for instant feedback
             await MainActor.run {
                 isMiniRecorderVisible = true // This will call showRecorderPanel() via didSet
             }
+            
+            SoundManager.shared.playStartSound()
+            await toggleRecord()
         }
     }
     
@@ -66,6 +66,9 @@ extension WhisperState {
         await MainActor.run {
             isMiniRecorderVisible = false
         }
+        
+        // End any active Power Mode session when dismissing recorder
+        await PowerModeSessionManager.shared.endSession()
         
         await cleanupModelResources()
         
