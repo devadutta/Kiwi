@@ -1,5 +1,7 @@
 # 🥝 Kiwi
 
+Kiwi is a fork of [VoiceInk](https://github.com/Beingpax/VoiceInk) with a ton of opinionated changes.
+
 <div align="center">
 
 **AI-Powered Voice Transcription for macOS**
