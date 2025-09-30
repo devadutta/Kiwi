@@ -5,6 +5,7 @@ class MiniWindowManager: ObservableObject {
     @Published var isVisible = false
     private var windowController: NSWindowController?
     private var miniPanel: MiniRecorderPanel?
+    private var hostingController: NSHostingController<AnyView>?
     private let whisperState: WhisperState
     private let recorder: Recorder
     
@@ -12,10 +13,13 @@ class MiniWindowManager: ObservableObject {
         self.whisperState = whisperState
         self.recorder = recorder
         setupNotifications()
+        // Pre-create the window for instant first show
+        initializeWindowIfNeeded()
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        cleanupWindow()
     }
     
     private func setupNotifications() {
@@ -30,28 +34,31 @@ class MiniWindowManager: ObservableObject {
     @objc private func handleHideNotification() {
         hide()
     }
+    
     func show() {
         if isVisible { return }
         
-        let activeScreen = NSApp.keyWindow?.screen ?? NSScreen.main ?? NSScreen.screens[0]
+        // Ensure window is created (should already be from init)
+        initializeWindowIfNeeded()
         
-        initializeWindow(screen: activeScreen)
+        // Update window position for current screen
+        let metrics = MiniRecorderPanel.calculateWindowMetrics()
+        miniPanel?.setFrame(metrics, display: false)
+        
         self.isVisible = true
-        miniPanel?.show()
+        miniPanel?.orderFrontRegardless()
     }
     
     func hide() {
         guard isVisible else { return }
         
         self.isVisible = false
-        self.miniPanel?.hide { [weak self] in
-            guard let self = self else { return }
-            self.deinitializeWindow()
-        }
+        miniPanel?.orderOut(nil)
     }
     
-    private func initializeWindow(screen: NSScreen) {
-        deinitializeWindow()
+    private func initializeWindowIfNeeded() {
+        // Only create if it doesn't exist
+        guard miniPanel == nil else { return }
         
         let metrics = MiniRecorderPanel.calculateWindowMetrics()
         let panel = MiniRecorderPanel(contentRect: metrics)
@@ -60,19 +67,19 @@ class MiniWindowManager: ObservableObject {
             .environmentObject(self)
             .environmentObject(whisperState.enhancementService!)
         
-        let hostingController = NSHostingController(rootView: miniRecorderView)
+        let hostingController = NSHostingController(rootView: AnyView(miniRecorderView))
         panel.contentView = hostingController.view
         
         self.miniPanel = panel
+        self.hostingController = hostingController
         self.windowController = NSWindowController(window: panel)
-        
-        panel.orderFrontRegardless()
     }
     
-    private func deinitializeWindow() {
-        windowController?.close()
+    private func cleanupWindow() {
+        miniPanel?.close()
         windowController = nil
         miniPanel = nil
+        hostingController = nil
     }
     
     func toggle() {
