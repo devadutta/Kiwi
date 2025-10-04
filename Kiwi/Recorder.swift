@@ -14,6 +14,7 @@ class Recorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
     private let playbackController = PlaybackController.shared
     @Published var audioMeter = AudioMeter(averagePower: 0, peakPower: 0)
     private var audioLevelCheckTask: Task<Void, Never>?
+    private var audioMeterUpdateTask: Task<Void, Never>?
     private var hasDetectedAudioInCurrentSession = false
     
     enum RecorderError: Error {
@@ -110,9 +111,10 @@ class Recorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
             }
             
             audioLevelCheckTask?.cancel()
+            audioMeterUpdateTask?.cancel()
             
-            Task {
-                while recorder != nil {
+            audioMeterUpdateTask = Task {
+                while recorder != nil && !Task.isCancelled {
                     updateAudioMeter()
                     try? await Task.sleep(nanoseconds: 33_000_000)
                 }
@@ -148,6 +150,9 @@ class Recorder: NSObject, ObservableObject, AVAudioRecorderDelegate {
     
     func stopRecording() {
         audioLevelCheckTask?.cancel()
+        audioLevelCheckTask = nil
+        audioMeterUpdateTask?.cancel()
+        audioMeterUpdateTask = nil
         recorder?.stop()
         recorder = nil
         audioMeter = AudioMeter(averagePower: 0, peakPower: 0)
