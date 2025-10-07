@@ -108,3 +108,5 @@ main.py
 pyproject.toml
 uv.lock
 Kiwi-Release.app/
+
+dist/
