@@ -153,8 +153,7 @@ struct ContentView: View {
         hasLoadedData &&
         whisperState.currentTranscriptionModel != nil &&
         hotkeyManager.selectedHotkey1 != .none &&
-        AXIsProcessTrusted() &&
-        CGPreflightScreenCaptureAccess()
+        AXIsProcessTrusted()
     }
 
     var body: some View {

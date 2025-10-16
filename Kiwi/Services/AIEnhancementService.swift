@@ -28,13 +28,6 @@ class AIEnhancementService: ObservableObject {
         }
     }
     
-    @Published var useScreenCaptureContext: Bool {
-        didSet {
-            UserDefaults.standard.set(useScreenCaptureContext, forKey: "useScreenCaptureContext")
-            NotificationCenter.default.post(name: .AppSettingsDidChange, object: nil)
-        }
-    }
-    
     @Published var customPrompts: [CustomPrompt] {
         didSet {
             if let encoded = try? JSONEncoder().encode(customPrompts) {
@@ -60,7 +53,6 @@ class AIEnhancementService: ObservableObject {
     }
     
     private let aiService: AIService
-    private let screenCaptureService: ScreenCaptureService
     private let dictionaryContextService: DictionaryContextService
     private let baseTimeout: TimeInterval = 30
     private let rateLimitInterval: TimeInterval = 1.0
@@ -70,12 +62,10 @@ class AIEnhancementService: ObservableObject {
     init(aiService: AIService = AIService(), modelContext: ModelContext) {
         self.aiService = aiService
         self.modelContext = modelContext
-        self.screenCaptureService = ScreenCaptureService()
         self.dictionaryContextService = DictionaryContextService.shared
         
         self.isEnhancementEnabled = UserDefaults.standard.bool(forKey: "isAIEnhancementEnabled")
         self.useClipboardContext = UserDefaults.standard.bool(forKey: "useClipboardContext")
-        self.useScreenCaptureContext = UserDefaults.standard.bool(forKey: "useScreenCaptureContext")
         
         self.customPrompts = PromptMigrationService.migratePromptsIfNeeded()
         
@@ -153,18 +143,10 @@ class AIEnhancementService: ObservableObject {
             ""
         }
         
-        let screenCaptureContext = if useScreenCaptureContext,
-                                   let capturedText = screenCaptureService.lastCapturedText,
-                                   !capturedText.isEmpty {
-            "\n\nActive Window Context: \(capturedText)"
-        } else {
-            ""
-        }
-        
         let dictionaryContext = dictionaryContextService.getDictionaryContext()
         
-        let generalContextSection = if !clipboardContext.isEmpty || !screenCaptureContext.isEmpty {
-            "\n\n<CONTEXT_INFORMATION>\(clipboardContext)\(screenCaptureContext)\n</CONTEXT_INFORMATION>"
+        let generalContextSection = if !clipboardContext.isEmpty {
+            "\n\n<CONTEXT_INFORMATION>\(clipboardContext)\n</CONTEXT_INFORMATION>"
         } else {
             ""
         }
@@ -337,16 +319,6 @@ class AIEnhancementService: ObservableObject {
             return (result, duration, promptName)
         } catch {
             throw error
-        }
-    }
-    
-    func captureScreenContext() async {
-        guard useScreenCaptureContext else { return }
-        
-        if let capturedText = await screenCaptureService.captureAndExtractText() {
-            await MainActor.run {
-                self.objectWillChange.send()
-            }
         }
     }
     
