@@ -33,8 +33,6 @@ struct ConfigurationView: View {
     @State private var websiteConfigs: [URLConfig] = []
     @State private var newWebsiteURL: String = ""
     
-    // New state for screen capture toggle
-    @State private var useScreenCapture = false
     @State private var isAutoSendEnabled = false
     @State private var isDefault = false
     
@@ -93,7 +91,6 @@ struct ConfigurationView: View {
             _selectedLanguage = State(initialValue: nil)
             _configName = State(initialValue: "")
             _selectedEmoji = State(initialValue: "✏️")
-            _useScreenCapture = State(initialValue: false)
             _isAutoSendEnabled = State(initialValue: false)
             _isDefault = State(initialValue: false)
             // Default to current global AI provider/model for new configurations - use UserDefaults only
@@ -110,7 +107,6 @@ struct ConfigurationView: View {
             _selectedEmoji = State(initialValue: latestConfig.emoji)
             _selectedAppConfigs = State(initialValue: latestConfig.appConfigs ?? [])
             _websiteConfigs = State(initialValue: latestConfig.urlConfigs ?? [])
-            _useScreenCapture = State(initialValue: latestConfig.useScreenCapture)
             _isAutoSendEnabled = State(initialValue: latestConfig.isAutoSendEnabled)
             _isDefault = State(initialValue: latestConfig.isDefault)
             _selectedAIProvider = State(initialValue: latestConfig.selectedAIProvider)
@@ -585,12 +581,6 @@ struct ConfigurationView: View {
                             }
 
                             Divider()
-                            
-                           
-                            Toggle("Context Awareness", isOn: $useScreenCapture)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                            
                         }
                     }
                     .padding()
@@ -695,7 +685,6 @@ struct ConfigurationView: View {
                     selectedPrompt: selectedPromptId?.uuidString,
                     selectedTranscriptionModelName: selectedTranscriptionModelName,
                     selectedLanguage: selectedLanguage,
-                    useScreenCapture: useScreenCapture,
                     selectedAIProvider: selectedAIProvider,
                     selectedAIModel: selectedAIModel,
                     isAutoSendEnabled: isAutoSendEnabled,
@@ -711,7 +700,6 @@ struct ConfigurationView: View {
             updatedConfig.selectedLanguage = selectedLanguage
             updatedConfig.appConfigs = selectedAppConfigs.isEmpty ? nil : selectedAppConfigs
             updatedConfig.urlConfigs = websiteConfigs.isEmpty ? nil : websiteConfigs
-            updatedConfig.useScreenCapture = useScreenCapture
             updatedConfig.isAutoSendEnabled = isAutoSendEnabled
             updatedConfig.selectedAIProvider = selectedAIProvider
             updatedConfig.selectedAIModel = selectedAIModel

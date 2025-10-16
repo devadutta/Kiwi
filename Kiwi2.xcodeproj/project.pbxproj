@@ -50,9 +50,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E11473B02CBE0F0A00318EE4 /* Kiwi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kiwi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E11473C32CBE0F0B00318EE4 /* KiwiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiwiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E11473CD2CBE0F0B00318EE4 /* KiwiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiwiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11473B02CBE0F0A00318EE4 /* Kiwi2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kiwi2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11473C32CBE0F0B00318EE4 /* Kiwi2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kiwi2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E11473CD2CBE0F0B00318EE4 /* Kiwi2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Kiwi2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1B2DCAA2E3DE70A008DFD68 /* whisper.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = whisper.xcframework; path = "../whisper.cpp/build-apple/whisper.xcframework"; sourceTree = "<group>"; };
 		E1CE28772E4336150082B758 /* whisper.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = whisper.xcframework; path = "../build-apple/whisper.xcframework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,9 +120,9 @@
 		E11473B12CBE0F0A00318EE4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E11473B02CBE0F0A00318EE4 /* Kiwi.app */,
-				E11473C32CBE0F0B00318EE4 /* KiwiTests.xctest */,
-				E11473CD2CBE0F0B00318EE4 /* KiwiUITests.xctest */,
+				E11473B02CBE0F0A00318EE4 /* Kiwi2.app */,
+				E11473C32CBE0F0B00318EE4 /* Kiwi2Tests.xctest */,
+				E11473CD2CBE0F0B00318EE4 /* Kiwi2UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,9 +139,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E11473AF2CBE0F0A00318EE4 /* Kiwi */ = {
+		E11473AF2CBE0F0A00318EE4 /* Kiwi2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E11473D72CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "Kiwi" */;
+			buildConfigurationList = E11473D72CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "Kiwi2" */;
 			buildPhases = (
 				E11473AC2CBE0F0A00318EE4 /* Sources */,
 				E11473AD2CBE0F0A00318EE4 /* Frameworks */,
@@ -155,7 +155,7 @@
 			fileSystemSynchronizedGroups = (
 				E11473B22CBE0F0A00318EE4 /* Kiwi */,
 			);
-			name = Kiwi;
+			name = Kiwi2;
 			packageProductDependencies = (
 				E1A261112CC143AC00B233D1 /* KeyboardShortcuts */,
 				E1ADD4592CC5352A00303ECB /* LaunchAtLogin */,
@@ -164,12 +164,12 @@
 				E11BBA4D2E5DC555000AB839 /* FluidAudio */,
 			);
 			productName = Kiwi;
-			productReference = E11473B02CBE0F0A00318EE4 /* Kiwi.app */;
+			productReference = E11473B02CBE0F0A00318EE4 /* Kiwi2.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E11473C22CBE0F0B00318EE4 /* KiwiTests */ = {
+		E11473C22CBE0F0B00318EE4 /* Kiwi2Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E11473DA2CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "KiwiTests" */;
+			buildConfigurationList = E11473DA2CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "Kiwi2Tests" */;
 			buildPhases = (
 				E11473BF2CBE0F0B00318EE4 /* Sources */,
 				E11473C02CBE0F0B00318EE4 /* Frameworks */,
@@ -183,16 +183,16 @@
 			fileSystemSynchronizedGroups = (
 				E11473C62CBE0F0B00318EE4 /* KiwiTests */,
 			);
-			name = KiwiTests;
+			name = Kiwi2Tests;
 			packageProductDependencies = (
 			);
 			productName = KiwiTests;
-			productReference = E11473C32CBE0F0B00318EE4 /* KiwiTests.xctest */;
+			productReference = E11473C32CBE0F0B00318EE4 /* Kiwi2Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		E11473CC2CBE0F0B00318EE4 /* KiwiUITests */ = {
+		E11473CC2CBE0F0B00318EE4 /* Kiwi2UITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E11473DD2CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "KiwiUITests" */;
+			buildConfigurationList = E11473DD2CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "Kiwi2UITests" */;
 			buildPhases = (
 				E11473C92CBE0F0B00318EE4 /* Sources */,
 				E11473CA2CBE0F0B00318EE4 /* Frameworks */,
@@ -206,11 +206,11 @@
 			fileSystemSynchronizedGroups = (
 				E11473D02CBE0F0B00318EE4 /* KiwiUITests */,
 			);
-			name = KiwiUITests;
+			name = Kiwi2UITests;
 			packageProductDependencies = (
 			);
 			productName = KiwiUITests;
-			productReference = E11473CD2CBE0F0B00318EE4 /* KiwiUITests.xctest */;
+			productReference = E11473CD2CBE0F0B00318EE4 /* Kiwi2UITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -236,7 +236,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E11473AB2CBE0F0A00318EE4 /* Build configuration list for PBXProject "Kiwi" */;
+			buildConfigurationList = E11473AB2CBE0F0A00318EE4 /* Build configuration list for PBXProject "Kiwi2" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -257,9 +257,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E11473AF2CBE0F0A00318EE4 /* Kiwi */,
-				E11473C22CBE0F0B00318EE4 /* KiwiTests */,
-				E11473CC2CBE0F0B00318EE4 /* KiwiUITests */,
+				E11473AF2CBE0F0A00318EE4 /* Kiwi2 */,
+				E11473C22CBE0F0B00318EE4 /* Kiwi2Tests */,
+				E11473CC2CBE0F0B00318EE4 /* Kiwi2UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -315,12 +315,12 @@
 /* Begin PBXTargetDependency section */
 		E11473C52CBE0F0B00318EE4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E11473AF2CBE0F0A00318EE4 /* Kiwi */;
+			target = E11473AF2CBE0F0A00318EE4 /* Kiwi2 */;
 			targetProxy = E11473C42CBE0F0B00318EE4 /* PBXContainerItemProxy */;
 		};
 		E11473CF2CBE0F0B00318EE4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E11473AF2CBE0F0A00318EE4 /* Kiwi */;
+			target = E11473AF2CBE0F0A00318EE4 /* Kiwi2 */;
 			targetProxy = E11473CE2CBE0F0B00318EE4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -533,7 +533,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kiwi.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Kiwi";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kiwi2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Kiwi2";
 			};
 			name = Debug;
 		};
@@ -551,7 +551,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kiwi.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Kiwi";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Kiwi2.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Kiwi2";
 			};
 			name = Release;
 		};
@@ -590,7 +590,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E11473AB2CBE0F0A00318EE4 /* Build configuration list for PBXProject "Kiwi" */ = {
+		E11473AB2CBE0F0A00318EE4 /* Build configuration list for PBXProject "Kiwi2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E11473D52CBE0F0B00318EE4 /* Debug */,
@@ -599,7 +599,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E11473D72CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "Kiwi" */ = {
+		E11473D72CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "Kiwi2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E11473D82CBE0F0B00318EE4 /* Debug */,
@@ -608,7 +608,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E11473DA2CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "KiwiTests" */ = {
+		E11473DA2CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "Kiwi2Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E11473DB2CBE0F0B00318EE4 /* Debug */,
@@ -617,7 +617,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E11473DD2CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "KiwiUITests" */ = {
+		E11473DD2CBE0F0B00318EE4 /* Build configuration list for PBXNativeTarget "Kiwi2UITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E11473DE2CBE0F0B00318EE4 /* Debug */,
